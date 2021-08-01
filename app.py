@@ -1,5 +1,6 @@
 from flask import Flask
-from livejanus import livejanus, livejanus_socketio, db
+
+from livejanus import db, livejanus, livejanus_socketio
 from livejanus.environ import environ
 
 app = Flask(__name__)
@@ -11,7 +12,7 @@ app.config["DEBUG"] = environ["DEBUG"] is True
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["PREFERRED_URL_SCHEME"] = "https"
 app.config["SECRET_KEY"] = environ["SECRET"]
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///livejanus.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data/livejanus.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
