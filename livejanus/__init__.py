@@ -2,11 +2,15 @@ from os import environ
 from os.path import abspath, dirname, join as pjoin
 
 import stripe
-from flask import (Blueprint, make_response, redirect, render_template, request)
+from flask import Blueprint, make_response, redirect, render_template, request
 from flask_socketio import SocketIO, emit, join_room
 
-from livejanus.util import (SocketInvalidDataException, alphanumeric, random_string,
-                            time_as_utc)
+from livejanus.util import (
+    SocketInvalidDataException,
+    alphanumeric,
+    random_string,
+    time_as_utc,
+)
 from .auth import auth_handler, socket_session_handler
 from .db import Event, EventUser, Record, StripeSession, User, db
 
