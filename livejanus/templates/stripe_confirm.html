@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}LiveJanus - Success{% endblock %} {%
+block main %} {% block extrahead %}
+<script>
+  let eventKey = "{{ event_key }}";
+  setInterval(function () {
+    window.location.replace("/user/" + eventKey + "/");
+  }, 1000);
+</script>
+{% endblock %}
+<p>Success - redirecting to event page...</p>
+{% endblock %}

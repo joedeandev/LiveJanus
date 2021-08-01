@@ -1,0 +1,85 @@
+{% extends "base.html" %} {% block title %}LiveJanus - {{ event.name }}{%
+endblock %}{% block header %}{% include "header.html" %}{% endblock %} {% block
+main %}
+
+<div class="home">
+  <div class="homePane">
+    {% if error_msg %}
+    <div class="errorMessage">{{ error_msg }}</div>
+    {% endif %}
+    <form action="/user/{{ event.key }}/" method="POST">
+      <h1>Event Details</h1>
+      <label>
+        Event Name
+        <input type="text" name="eventName" value="{{ event.name }}" />
+      </label>
+      <div class="eventKeyDisplay">
+        <h2 class="eventKeyText">{{ event.key }}</h2>
+        This key, along with an event username and password, is needed to log in
+        to the event.
+      </div>
+      {% if event.is_premium %}
+
+      <label>
+        Event Maximum
+        <input
+          type="number"
+          name="eventMax"
+          min="-1"
+          value="{{ event.max_value }}"
+        />
+      </label>
+      <p>
+        The counter will warn when the maximum value is surpassed. Use "-1" for
+        no maximum.
+      </p>
+      {% endif %}
+
+      <h1>Event Users</h1>
+      <div class="eventUsersContainer">
+        {% for event_user in event_users %}
+        <label>
+          Username
+          <input
+            type="text"
+            name="eventUserUsername_{{ event_user.username }}"
+            value="{{ event_user.username }}"
+            disabled
+          />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            name="eventUserPassword_{{ event_user.username }}"
+            placeholder="..."
+          />
+        </label>
+        {% endfor %} {% if event.is_premium or event_users|length < 2 %}
+        <label>
+          Username
+          <input type="text" name="eventUserNew" placeholder="..." value="" />
+        </label>
+        <input
+          type="submit"
+          value="Add New User"
+          class="button inverseButton"
+        />
+        {% endif %}
+      </div>
+
+      {% if event.is_premium %}
+      <h1>Event Data</h1>
+      <p>
+        The raw data from the event can be downloaded
+        <a href="/user/{{ event.key }}/download/">here</a>.
+      </p>
+      {% endif %}
+
+      <input type="submit" value="Update Event Details" class="button" />{% if
+      not event.is_premium %} {% include "premium_ad.html" %} {% endif %}
+    </form>
+  </div>
+</div>
+
+{% endblock %}

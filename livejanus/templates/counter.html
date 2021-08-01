@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}LiveJanus - {{ event.name }}{%
+endblock %} {% block extrahead %}
+<script
+  src="https://cdn.socket.io/3.1.3/socket.io.min.js"
+  integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh"
+  crossorigin="anonymous"
+></script>
+<script>
+  let ownUsername = "{{ event_username }}";
+  let eventMax = {{ event_max }};
+</script>
+<script src="/counter.js"></script>
+{% endblock %} {% block main %}
+<div class="counterWrapper">
+  <div class="counter">
+    <h1 class="eventName serif">{{ event.name }}</h1>
+    <h1 id="count">Loading...</h1>
+    <div class="counterButtons">
+      <div class="counterButton" onclick="sendUpdate(1)">+1</div>
+      <div class="counterButton" onclick="sendUpdate(-1)">-1</div>
+    </div>
+  </div>
+  <div class="recordsWrapper">
+    <div id="records"></div>
+  </div>
+</div>
+{% endblock %} {% block footer %}{% include "header.html" %}{% endblock %}

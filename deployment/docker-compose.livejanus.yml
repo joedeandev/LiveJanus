@@ -1,0 +1,10 @@
+volumes:
+  livejanus-data:
+
+services:
+  livejanus:
+    container_name: ${COMPOSE_PROJECT_NAME}_livejanus
+    image: registry.joedean.dev/livejanus:latest
+    restart: always
+    volumes:
+      - livejanus-data:/app/livejanus.db

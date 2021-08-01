@@ -1,0 +1,25 @@
+upstream livejanus {
+	server livejanus:8000;
+}
+
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+	server_name livejanus.joedean.dev;
+
+	ssl_certificate /etc/nginx/ssl/live/livejanus.joedean.dev/fullchain.pem;
+	ssl_certificate_key /etc/nginx/ssl/live/livejanus.joedean.dev/privkey.pem;
+
+	location / {
+		proxy_pass http://livejanus;
+	}
+
+	location /socket.io/ {
+        include proxy_params;
+        proxy_http_version 1.1;
+        proxy_buffering off;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass http://livejanus/socket.io;
+    }
+}

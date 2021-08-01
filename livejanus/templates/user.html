@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block title %}LiveJanus - Home{% endblock %}{%
+block header %}{% include "header.html" %}{% endblock %} {% block main %}
+
+<div class="home">
+  {% if error_msg %}
+  <div class="errorMessage">{{ error_msg }}</div>
+  {% endif %}
+  <div class="homePane">
+    <h1>Your Data</h1>
+    <ul>
+      <li>
+        <span class="bold">Username: </span><span>{{ user.username }}</span>
+      </li>
+      <li><span class="bold">Email: </span><span>{{ user.email }}</span></li>
+    </ul>
+  </div>
+  <div class="homePane">
+    <h1>Your Events</h1>
+
+    {% for event in events %}
+    <a
+      class="eventView {% if event.is_finished %} eventDone {% endif %}"
+      href="/user/{{ event.key }}/"
+    >
+      <h2>{{ event.name }}</h2>
+      <div class="eventData">
+        {{ "Premium" if event.is_premium else "Basic" }} Event - Key &lt;<span
+          class="bold"
+          >{{event.key }}</span
+        >&gt;
+      </div>
+    </a>
+    {% endfor %}
+    <form action="/user/" method="POST">
+      <input type="hidden" name="action" value="create" />
+      <input
+        type="submit"
+        name="submit"
+        value="Create Basic Event"
+        class="button"
+      />
+      <input
+        type="submit"
+        name="submit"
+        value="Create Premium Event"
+        class="button inverseButton"
+      />
+      <p>
+        Premium events collect detailed data, allow for more users, and other
+        features.
+      </p>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}LiveJanus - The Multi-User Censusing
+Tool{% endblock %} {% block main %}
+<div class="splash">
+  <div class="splashLogo">
+    <img height="72" alt="LiveJanus Logo" src="/logo.png" />
+    <h1 class="serif">LiveJanus</h1>
+  </div>
+  <h3>The Multi-User Censusing Tool</h3>
+  <div class="splashButtons">
+    <a href="/user/login/"><div class="button">User Login</div></a>
+    <a href="/event/login/"><div class="button">Event Login</div></a>
+  </div>
+</div>
+{% endblock %} {% block footer %}{% include "footer.html" %}{% endblock %}

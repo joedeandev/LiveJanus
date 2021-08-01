@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}LiveJanus - Login{% endblock %}{%
+block header %}{% include "header.html" %}{% endblock %} {% block main %}
+<div class="login">
+  <form action="/event/login/" method="POST">
+    {% if error_msg %}
+    <div class="errorMessage">{{ error_msg }}</div>
+    {% endif %} {% if not event_key %}
+    <label>
+      Event Key
+      <input type="text" name="key" placeholder="..." />
+    </label>
+    <input type="submit" class="button" value="Enter" />
+    {% else %}
+    <label>
+      Event Key
+      <input type="text" name="key" placeholder="..." value="{{ event_key }}" />
+    </label>
+    <label>
+      Username
+      <input
+        type="text"
+        name="username"
+        {%
+        if
+        username
+        %}
+        value="{{ username }}"
+        {%
+        endif
+        %}
+        placeholder="..."
+      />
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" placeholder="..." />
+    </label>
+    <input type="submit" class="button" value="Login" />
+    {% endif %}
+  </form>
+</div>
+{% endblock %} {% block footer %}{% include "login_gdpr_footer.html" %}{%
+endblock %}

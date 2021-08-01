@@ -1,0 +1,366 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500&family=Merriweather&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+input::-moz-focus-inner {
+  outline: none;
+}
+
+body {
+  font-family: "Fira Sans", "Open Sans", sans-serif;
+  font-size: 1rem;
+  color: #334443;
+  background-color: #fffbdf;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.serif {
+  font-family: "Merriweather", serif;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.button {
+  text-align: center;
+}
+
+.button,
+form input,
+.errorMessage {
+  padding: 24px;
+  border-radius: 8px;
+  border: 2px solid #334443;
+}
+
+.button,
+.headerItem {
+  color: #334443;
+  background-color: #fffbdf;
+  transition: 0.25s background-color, 0.25s color;
+  cursor: pointer;
+}
+
+.button:hover,
+.headerItem:hover {
+  background-color: #334443;
+  color: #fffbdf;
+}
+
+.inverseButton {
+  background-color: #334443;
+  color: #fffbdf;
+}
+
+.inverseButton:hover {
+  background-color: #fffbdf;
+  color: #334443;
+}
+
+main,
+footer,
+nav {
+  width: 100vw;
+  max-width: 100%;
+}
+
+footer {
+  margin-top: 48px;
+}
+
+footer > *:first-child,
+header > *:first-child {
+  border-top: 2px solid #3344431f;
+}
+
+footer > *:first-child {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+}
+
+.headerContainer {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  align-content: stretch;
+  height: 48px;
+}
+
+.headerItem {
+  height: 100%;
+  flex-grow: 1;
+  text-align: center;
+  padding: 12px;
+}
+
+.splash {
+  width: 100%;
+  height: 80vh;
+  max-width: 100%;
+  min-height: 250px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.splash .splashLogo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  line-height: 4rem;
+}
+
+.splashLogo > img {
+  height: 72px;
+  margin-right: 1rem;
+}
+
+.splashLogo > h1 {
+  font-size: 62px;
+}
+
+.splashButtons {
+  display: flex;
+  min-width: 100%;
+  justify-content: center;
+}
+
+.splashButtons > a {
+  margin: 24px;
+  width: 33%;
+  min-width: 150px;
+  max-width: 200px;
+}
+
+.login {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.login > form {
+  max-width: 600px;
+}
+
+form {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  width: 100%;
+}
+
+form > * {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+form .button,
+form input[type="password"],
+form input[type="text"],
+form input[type="number"] {
+  padding: 12px;
+  font-size: 1em;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+}
+
+form input[type="password"],
+form input[type="text"],
+form input[type="number"] {
+  padding: 12px;
+  background-color: unset;
+}
+
+.errorMessage {
+  width: 100%;
+  text-align: center;
+  border-color: #c75643;
+}
+
+.counterWrapper {
+  width: 100%;
+  min-height: 80vh;
+}
+
+.counter > {
+  width: 100%;
+  height: 70%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: center;
+}
+
+.counter > * {
+  text-align: center;
+  width: 100%;
+}
+
+.counter > .eventName {
+  text-align: left;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-left: 12px;
+  width: unset;
+}
+
+.counter > #count {
+  font-size: 8em;
+  margin-top: 12px;
+  margin-bottom: 48px;
+  padding: 12px;
+  background-color: #334443;
+  color: #fffbdf;
+  transition: background-color 0.15s linear;
+}
+
+.counter > #count.eventValueInvalid {
+  background-color: #c75643;
+}
+
+.counter > .counterButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.counter > .counterButtons > .counterButton {
+  width: 30%;
+  padding: 12px;
+  font-size: 4em;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-bottom: 12px solid #334443;
+  text-align: center;
+  transition: background-color 0.1s linear, border-radius 0.1s linear,
+    color 0.1s linear;
+  cursor: pointer;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.counter > .counterButtons > .counterButton:nth-child(2) {
+  color: #c75643;
+  border-color: #c75643;
+}
+
+.counter > .counterButtons > .counterButton:hover {
+  background-color: #334443;
+  color: #fffbdf;
+  border-radius: 24px;
+}
+
+.counter > .counterButtons > .counterButton:nth-child(2):hover {
+  background-color: #c75643;
+}
+
+.counterWrapper > .recordsWrapper {
+  height: 10vh;
+  min-height: 250px;
+  overflow-y: hidden;
+}
+
+.counterWrapper > .recordsWrapper > #records {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+#records .record {
+  transition: opacity 0.2s linear, max-height 0.2s linear;
+  max-height: 3em;
+  margin: 2px;
+  border-radius: 6px;
+  padding: 4px;
+}
+
+#records .record.ownRecord {
+  background-color: #334443;
+  color: #fffbdf;
+}
+
+#records .record.newRecord {
+  opacity: 0;
+  max-height: 0;
+}
+
+#records > .record.negative {
+  color: #c75643;
+}
+
+#records > .record.negative.ownRecord {
+  background-color: #c75643;
+  color: #fffbdf;
+}
+
+.home {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 48px;
+  border-top: 2px solid #334443;
+}
+
+.home > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.home > .homePane h1,
+.home > .homePane h2 {
+  margin-bottom: 4px;
+}
+
+.home .eventView.eventDone > h2 {
+  color: #c75643;
+}
+
+.eventKeyDisplay {
+  width: 100%;
+  background-color: #334443;
+  color: #fffbdf;
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.eventKeyDisplay > h2 {
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 2em;
+  margin: 0;
+}
+
+.eventUsersContainer {
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.eventUsersContainer > * {
+  margin: 12px;
+}

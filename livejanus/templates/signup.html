@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}LiveJanus - Sign Up{% endblock %}{%
+block header %}{% include "header.html" %}{% endblock %} {% block main %}
+<div class="login">
+  <form action="/user/signup/" method="POST">
+    {% if error_msg %}
+    <div class="errorMessage">{{ error_msg }}</div>
+    {% endif %}
+    <label>
+      Username
+      <input type="text" name="username" placeholder="..." />
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" placeholder="..." />
+    </label>
+    <label>
+      Email
+      <input type="text" name="email" placeholder="..." />
+    </label>
+
+    <input type="submit" class="button inverseButton" value="Sign Up" />
+  </form>
+</div>
+{% endblock %} {% block footer %}{% include "login_gdpr_footer.html" %}{%
+endblock %}
