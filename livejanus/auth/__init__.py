@@ -1,15 +1,16 @@
-from typing import Union
-from argon2 import PasswordHasher
-from livejanus.environ import environ
-from livejanus.util import random_string
+from os import environ
 from time import time
-from datetime import datetime
+from typing import Union
+
+from argon2 import PasswordHasher
+
+from livejanus.util import random_string
 
 
 class AuthHandler:
     def __init__(self):
         self._password_hasher = PasswordHasher()
-        self._salt = environ["HASH_SALT"]
+        self._salt = environ.get("HASH_SALT", "saltysalt")
         self._tokens = {}
         self._expire_time = 60 * 60 * 24 * 7
         self._max_tokens = 2 ** 13
@@ -40,7 +41,9 @@ class AuthHandler:
             user = query_class.query.filter(query_class.username == username).first()
         if user is None:
             return False
-        if environ["DEBUG"] is True and password == environ["DEBUG_MASTER_PASSWORD"]:
+        if environ.get("DEBUG", False) is True and password == environ.get(
+            "DEBUG_MASTER_PASSWORD", -1
+        ):
             result = True
         else:
             result = auth_handler.verify(password, user.password)

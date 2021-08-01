@@ -3,8 +3,16 @@ volumes:
 
 services:
   livejanus:
-    container_name: ${COMPOSE_PROJECT_NAME}a_livejanus
+    container_name: ${COMPOSE_PROJECT_NAME}_livejanus
     image: registry.joedean.dev/livejanus:latest
     restart: always
     volumes:
       - livejanus-data:/app/data
+    environment:
+      - DEBUG=${LIVEJANUS_DEBUG:-False}
+      - SECRET=${LIVEJANUS_SECRET:-secretkey}
+      - HASH_SALT=${LIVEJANUS_HASH_SALT:-saltysalt}
+      - DEBUG_MASTER_PASSWORD=${LIVEJANUS_DEBUG_MASTER_PASSWORD:-password}
+      - STRIPE_PUBLIC_KEY=${LIVEJANUS_STRIPE_PUBLIC_KEY:-123}
+      - STRIPE_PRIVATE_KEY=${LIVEJANUS_STRIPE_PRIVATE_KEY:-456}
+      - STRIPE_PRICE_ID=${LIVEJANUS_STRIPE_PRICE_ID:-789}

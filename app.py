@@ -1,17 +1,18 @@
+from os import environ
+
 from flask import Flask
 
 from livejanus import db, livejanus, livejanus_socketio
-from livejanus.environ import environ
 
 app = Flask(__name__)
 
 app.register_blueprint(livejanus)
 
 
-app.config["DEBUG"] = environ["DEBUG"] is True
+app.config["DEBUG"] = environ.get("DEBUG", False) is True
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["PREFERRED_URL_SCHEME"] = "https"
-app.config["SECRET_KEY"] = environ["SECRET"]
+app.config["SECRET_KEY"] = environ.get("SECRET", "secretkey")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data/livejanus.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 

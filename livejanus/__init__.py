@@ -1,22 +1,14 @@
-from flask import (
-    redirect,
-    render_template,
-    request,
-    Blueprint,
-    make_response,
-)
-from os.path import join as pjoin, abspath, dirname
-from livejanus.environ import environ
-from livejanus.util import (
-    random_string,
-    time_as_utc,
-    SocketInvalidDataException,
-    alphanumeric,
-)
-from .db import EventUser, Record, StripeSession, User, db, Event
-from .auth import auth_handler, socket_session_handler
-from flask_socketio import SocketIO, join_room, emit
+from os import environ
+from os.path import abspath, dirname, join as pjoin
+
 import stripe
+from flask import (Blueprint, make_response, redirect, render_template, request)
+from flask_socketio import SocketIO, emit, join_room
+
+from livejanus.util import (SocketInvalidDataException, alphanumeric, random_string,
+                            time_as_utc)
+from .auth import auth_handler, socket_session_handler
+from .db import Event, EventUser, Record, StripeSession, User, db
 
 blueprint_root = dirname(abspath(__file__))
 livejanus = Blueprint(
@@ -29,7 +21,7 @@ livejanus = Blueprint(
 )
 livejanus_socketio = SocketIO()
 
-stripe.api_key = environ["STRIPE_PRIVATE_KEY"]
+stripe.api_key = environ.get("STRIPE_PRIVATE_KEY")
 
 
 def make_logged_in_response(session_token: str, redirect_url: str):
@@ -39,7 +31,7 @@ def make_logged_in_response(session_token: str, redirect_url: str):
         session_token,
         max_age=None,
         secure=True,
-        httponly=environ["DEBUG"] is not True,
+        httponly=environ.get("DEBUG", False) is not True,
         samesite="strict",
     )
     return response
@@ -126,7 +118,7 @@ def page_user_home():
                 payment_method_types=["card"],
                 line_items=[
                     {
-                        "price": environ["STRIPE_PRICE_ID"],
+                        "price": environ.get("STRIPE_PRICE_ID"),
                         "quantity": 1,
                     }
                 ],
