@@ -36,7 +36,7 @@ def make_logged_in_response(session_token: str, redirect_url: str):
         session_token,
         max_age=None,
         secure=True,
-        httponly=not is_debug(),
+        httponly=False,
         samesite="strict",
     )
     return response
