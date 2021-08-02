@@ -119,7 +119,7 @@ def page_user_home():
         and request.form["action"] == "create"
     ):
         if "premium" in str(request.form["submit"]).lower():
-            host_root = request.url_root.split("/")[2]
+            host_root = request.referrer.split("/")[2]
             if "localhost" not in host_root and "." not in host_root:
                 raise Exception("Host root looks invalid, aborting")
             stripe_checkout_session = stripe.checkout.Session.create(
