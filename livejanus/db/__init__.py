@@ -1,13 +1,15 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.sql import func
+from csv import writer as csv_writer
 from datetime import datetime
+from io import StringIO
+from typing import Union
+
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
+from sqlalchemy.sql import func
+
 from livejanus.auth import auth_handler
 from livejanus.util import random_string, time_as_utc
-from typing import Union
-from io import StringIO
-from csv import writer as csv_writer
-from sqlalchemy.engine import Engine
-from sqlalchemy import event
 
 db = SQLAlchemy()
 
@@ -218,7 +220,7 @@ class StripeSession(db.Model):
     created = db.Column(db.Integer, nullable=False)
     used = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, user: int, session: str, token: str):
+    def __init__(self, user: int, session: str):
         self.user = user
         self.session = session
         self.created = int(time_as_utc())

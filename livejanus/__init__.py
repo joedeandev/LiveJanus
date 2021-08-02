@@ -90,9 +90,9 @@ def page_user_home():
     fail_response = redirect("/user/login/")
 
     if "stripe" in request.args:
-        checkout_id = request.args.get("stripe")
+        secret_session_id = request.args.get("stripe")
         stripe_session = (
-            StripeSession.query.filter(StripeSession.session == checkout_id)
+            StripeSession.query.filter(StripeSession.session == secret_session_id)
             .filter(StripeSession.used == False)
             .first()
         )
@@ -122,6 +122,7 @@ def page_user_home():
             host_root = request.referrer.split("/")[2]
             if "localhost" not in host_root and "." not in host_root:
                 raise Exception("Host root looks invalid, aborting")
+            stripe_secret_session = random_string(length=128)
             stripe_checkout_session = stripe.checkout.Session.create(
                 payment_method_types=["card"],
                 line_items=[
@@ -131,15 +132,10 @@ def page_user_home():
                     }
                 ],
                 mode="payment",
-                success_url=f"https://{host_root}/user/?stripe="
-                + "{CHECKOUT_SESSION_ID}",
+                success_url=f"https://{host_root}/user/?stripe={stripe_secret_session}",
                 cancel_url=f"https://{host_root}/user/",
             )
-            db.session.add(
-                StripeSession(
-                    user.id, stripe_checkout_session.id, request.cookies["session"]
-                )
-            )
+            db.session.add(StripeSession(user.id, stripe_secret_session))
             db.session.commit()
             return redirect(stripe_checkout_session.url, code=303)
         else:
@@ -280,23 +276,26 @@ def page_event_login():
 
 @livejanus.route("/event/<event_key>/")
 def page_event_counter(event_key):
-    fail_response = redirect("/event/login")
+    fail_response = render_template(
+        "event_login.html",
+        event_key=event_key,
+    )
     if "session" not in request.cookies:
         return fail_response
     event_user: EventUser = auth_handler.validate(request.cookies["session"])
-    if event_user is None:
-        return fail_response
     event = Event.from_key(event_key)
-    if event is None:
-        return fail_response
-    if event_user.event != event.id:
+    if (
+        type(event_user) != EventUser
+        or type(event) != Event
+        or event_user.event != event.id
+    ):
         return fail_response
 
     if not event.is_happening:
         return render_template(
             "event_login.html",
             error_msg=f"The requested event is no longer available.",
-            event_key=request.form["key"],
+            event_key=event_key,
             username=request.form["username"],
         )
     return render_template(
