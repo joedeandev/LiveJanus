@@ -30,6 +30,9 @@ class User(db.Model):
         self.signup_time = datetime.utcnow().timestamp()
         self.last_authentication = self.signup_time
 
+    def set_password(self, password: str):
+        self.password = auth_handler.hash(password)
+
     @classmethod
     def authenticate(cls, username: str, password: str) -> Union[str, bool]:
         response = auth_handler.authenticate(username, password, User)

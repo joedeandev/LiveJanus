@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block title %}LiveJanus - About{% endblock %}{%
+block header %}{% include "header.html" %}{% endblock %} {% block main %}
+
+<div class="home about">
+  <h1>About LiveJanus</h1>
+  <p>
+    LiveJanus enables multiple users to simultaneously maintain a census. It is
+    free to use; if you are curious,
+    <a href="/user/signup/" class="underlined">sign up</a> and give it a spin.
+  </p>
+  <p>
+    A user, once signed up, can create an event from their user page. Click on
+    the new event in the user page to view and change the event details. From
+    the event details page, the user can create sub-accounts for the census
+    users. These users are created with a default password, but these passwords
+    can quickly be changed from the event details page. Basic events can have a
+    maximum of 2 census users, and do not save granular data.
+  </p>
+  <p>
+    Census users can <a href="/event/login/">log in to an event</a> using the
+    event key (found on the event details page), along with their username and
+    password (also found and configured on the event details page). The event
+    key can be shared via the event URL. Once logged in, census users can see
+    and update a live tally (see example below).
+  </p>
+  <img src="/counter.png" alt="An example of the LiveJanus counter" />
+  <p>
+    A premium event allows you to assign an unlimited number of users to an
+    event, download timestamped data, and set a maximum value to the counter.
+    Premium events are purchased on a per-event basis, and are provided without
+    guarantee or warranty. Payment is processed via
+    <a href="https://stripe.com" class="underlined">Stripe</a>.
+  </p>
+  <h1>Support</h1>
+  <p>
+    LiveJanus is a project from
+    <a href="https://joedean.dev" class="underlined">joedean.dev</a>. If you
+    experience issues, contact support at
+    <a href="mailto:livejanus@joedean.dev" class="underlined"
+      >livejanus@joedean.dev</a
+    >.
+  </p>
+</div>
+{% endblock %}

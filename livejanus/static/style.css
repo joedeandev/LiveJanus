@@ -364,3 +364,20 @@ form input[type="number"] {
 .eventUsersContainer > * {
   margin: 12px;
 }
+
+.about {
+  border: 0;
+}
+
+.about > img {
+  max-height: 26em;
+  border-radius: 12px;
+  border: 2px solid #334443;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.underlined {
+  text-decoration: underline;
+}

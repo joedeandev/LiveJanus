@@ -24,4 +24,5 @@ db.create_all()
 livejanus_socketio.init_app(app)
 
 if __name__ == "__main__":
+
     livejanus_socketio.run(app, host="127.0.0.1", port=8000)

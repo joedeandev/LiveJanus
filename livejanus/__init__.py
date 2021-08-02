@@ -1,6 +1,7 @@
 from os import environ
 from os.path import abspath, dirname, join as pjoin
 
+import click
 import stripe
 from flask import Blueprint, make_response, redirect, render_template, request
 from flask_socketio import SocketIO, emit, join_room
@@ -40,6 +41,55 @@ def make_logged_in_response(session_token: str, redirect_url: str):
         samesite="strict",
     )
     return response
+
+
+@livejanus.cli.command("premium")
+@click.argument("event_key")
+def set_event_premium(event_key: str):
+    event = Event.from_key(event_key)
+    if event is None:
+        raise Exception(f"Event with key {event_key} was not found.")
+    if event.is_premium:
+        raise Exception(f"Event with key {event_key} was already premium.")
+    event.is_premium = True
+    db.session.commit()
+    print("Success")
+
+
+@livejanus.cli.command("password")
+@click.argument("username")
+@click.argument("password")
+def set_user_password(username: str, password: str):
+    user = User.query.filter(User.username == username).first()
+    if user is None:
+        raise Exception(f"User with username {username} was not found.")
+    user.set_password(password)
+    db.session.commit()
+    print("Success")
+
+
+@livejanus.cli.command("users")
+def list_users():
+    for user in User.query.order_by(User.last_authentication).all():
+        print(
+            "Username, Email, Days Since Login:",
+            user.username,
+            user.email,
+            int((time_as_utc() - user.last_authentication) / (60 * 60 * 24 * 10)) / 10,
+            sep="\t\t",
+        )
+
+
+@livejanus.cli.command("events")
+def list_events():
+    for event in Event.query.order_by(Event.created_time).all():
+        try:
+            event_owner = User.query.filter(User.id == event.owner).first().username
+        except:
+            event_owner = "<ERROR>"
+        print(
+            "Owner, Key, Premium:", event_owner, event.key, event.is_premium, sep="\t\t"
+        )
 
 
 @livejanus.route("/")
@@ -272,6 +322,11 @@ def page_event_login():
             username=request.form["username"],
         )
     return make_logged_in_response(session_token, f'/event/{request.form["key"]}')
+
+
+@livejanus.route("/about/")
+def page_about():
+    return render_template("about.html")
 
 
 @livejanus.route("/event/<event_key>/")
