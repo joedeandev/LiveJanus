@@ -39,6 +39,7 @@ a {
 
 .button,
 form input,
+.home .eventView,
 .errorMessage {
   padding: 24px;
   border-radius: 8px;
@@ -336,8 +337,17 @@ form input[type="number"] {
   margin-bottom: 4px;
 }
 
-.home .eventView.eventDone > h2 {
+.home .eventView.eventDone h2 {
   color: #c75643;
+}
+
+.home .eventView {
+  padding: 18px 18px 18px 24px;
+  margin-bottom: 24px;
+}
+
+.home .eventView h2 {
+  margin-top: 0;
 }
 
 .eventKeyDisplay {

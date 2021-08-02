@@ -11,7 +11,7 @@ app.register_blueprint(livejanus)
 
 
 app.config["DEBUG"] = is_debug()
-app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config["TEMPLATES_AUTO_RELOAD"] = is_debug()
 app.config["PREFERRED_URL_SCHEME"] = "https"
 app.config["SECRET_KEY"] = environ.get("SECRET", "secretkey")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data/livejanus.db"
