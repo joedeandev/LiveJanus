@@ -11,4 +11,4 @@ COPY . /app
 
 ENV FLASK_APP=/app/app
 
-CMD cd /app && gunicorn --worker-class eventlet --bind 0.0.0.0:8000 --workers 1 app:app
+CMD cd /app && gunicorn --worker-class eventlet --bind 0.0.0.0:8000 --workers 1 --threads=4 app:app

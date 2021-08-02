@@ -2,7 +2,7 @@ upstream livejanus {
 	server livejanus:8000;
 }
 
-limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=30r/m;
+limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=10r/m;
 
 server {
 	listen 443 ssl;
@@ -13,7 +13,7 @@ server {
 	ssl_certificate_key /etc/nginx/ssl/live/livejanus.joedean.dev/privkey.pem;
 
 	location / {
-		limit_req zone=ratelimit burst=10 delay=10;
+		limit_req zone=ratelimit burst=20 delay=10;
 		proxy_pass http://livejanus;
 	}
 
