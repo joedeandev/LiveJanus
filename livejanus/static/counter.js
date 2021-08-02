@@ -47,6 +47,12 @@ function addRecord(recordTime, recordUser, recordValue, recordChange) {
 
     if (recordUser === ownUsername) {
       recordElement.classList.add("ownRecord");
+      if (
+        title === "value" &&
+        document.getElementById("muteControl").classList.contains("checked")
+      ) {
+        new Audio("/ding.mp3").play();
+      }
     }
 
     if (title === "value") {

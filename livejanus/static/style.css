@@ -391,3 +391,19 @@ form input[type="number"] {
 .underlined {
   text-decoration: underline;
 }
+
+#muteControl {
+  width: 1em;
+  height: 1em;
+  background-image: url("/sound_off.svg");
+  background-size: cover;
+  display: inline-block;
+  border: 2px solid #334443;
+  margin-left: 24px;
+  margin-right: 24px;
+  border-radius: 6px;
+}
+
+#muteControl.checked {
+  background-image: url("/sound_on.svg");
+}

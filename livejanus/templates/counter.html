@@ -13,7 +13,14 @@ endblock %} {% block extrahead %}
 {% endblock %} {% block main %}
 <div class="counterWrapper">
   <div class="counter">
-    <h1 class="eventName serif">{{ event.name }}</h1>
+    <h1 class="eventName serif">
+      {{ event.name }}
+      <div
+        id="muteControl"
+        class="checked"
+        onclick="if (this.classList.contains('checked')) {this.classList.remove('checked')} else {this.classList.add('checked')}"
+      ></div>
+    </h1>
     <h1 id="count">Loading...</h1>
     <div class="counterButtons">
       <div class="counterButton" onclick="sendUpdate(1)">+1</div>
