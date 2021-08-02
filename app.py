@@ -3,13 +3,14 @@ from os import environ
 from flask import Flask
 
 from livejanus import db, livejanus, livejanus_socketio
+from livejanus.util import is_debug
 
 app = Flask(__name__)
 
 app.register_blueprint(livejanus)
 
 
-app.config["DEBUG"] = environ.get("DEBUG", False) is True
+app.config["DEBUG"] = is_debug()
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["PREFERRED_URL_SCHEME"] = "https"
 app.config["SECRET_KEY"] = environ.get("SECRET", "secretkey")

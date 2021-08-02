@@ -1,6 +1,7 @@
 from datetime import datetime
-from string import ascii_letters, digits, ascii_lowercase
+from os import environ
 from random import choices
+from string import ascii_letters, digits
 
 alphanumeric = digits + ascii_letters
 
@@ -15,3 +16,7 @@ class SocketInvalidDataException(Exception):
 
 def random_string(source: str = alphanumeric, length: int = 6) -> str:
     return "".join(choices(source, k=length))
+
+
+def is_debug() -> bool:
+    return environ.get("DEBUG", False).lower() == "true"

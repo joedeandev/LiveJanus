@@ -8,6 +8,7 @@ from flask_socketio import SocketIO, emit, join_room
 from livejanus.util import (
     SocketInvalidDataException,
     alphanumeric,
+    is_debug,
     random_string,
     time_as_utc,
 )
@@ -35,7 +36,7 @@ def make_logged_in_response(session_token: str, redirect_url: str):
         session_token,
         max_age=None,
         secure=True,
-        httponly=environ.get("DEBUG", False) is not True,
+        httponly=not is_debug(),
         samesite="strict",
     )
     return response
