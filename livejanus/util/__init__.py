@@ -19,4 +19,4 @@ def random_string(source: str = alphanumeric, length: int = 6) -> str:
 
 
 def is_debug() -> bool:
-    return environ.get("DEBUG", False).lower() == "true"
+    return str(environ.get("DEBUG", False)).lower() == "true"

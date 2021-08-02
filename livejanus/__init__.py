@@ -119,6 +119,9 @@ def page_user_home():
         and request.form["action"] == "create"
     ):
         if "premium" in str(request.form["submit"]).lower():
+            host_root = request.url_root.split("/")[2]
+            if "localhost" not in host_root and "." not in host_root:
+                raise Exception("Host root looks invalid, aborting")
             stripe_checkout_session = stripe.checkout.Session.create(
                 payment_method_types=["card"],
                 line_items=[
@@ -128,8 +131,9 @@ def page_user_home():
                     }
                 ],
                 mode="payment",
-                success_url=request.host_url + "user/?stripe={CHECKOUT_SESSION_ID}",
-                cancel_url=request.host_url + "user/",
+                success_url=f"https://{host_root}/user/?stripe="
+                + "{CHECKOUT_SESSION_ID}",
+                cancel_url=f"https://{host_root}/user/",
             )
             db.session.add(
                 StripeSession(
