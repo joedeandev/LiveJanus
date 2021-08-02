@@ -2,7 +2,7 @@ upstream livejanus {
 	server livejanus:8000;
 }
 
-limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=10r/m;
+limit_req_zone $binary_remote_addr zone=ratelimit:10m rate=30r/m;
 
 server {
 	listen 443 ssl;
