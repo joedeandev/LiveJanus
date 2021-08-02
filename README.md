@@ -10,7 +10,9 @@ LiveJanus is a real-time, multi-user censusing tool, built on [Flask](https://fl
 
 # Usage
 
-##
+## Interaction
+
+User-end usage is described in [about.html](./livejanus/templates/about.html).
 
 ## Deployment
 
